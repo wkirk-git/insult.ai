@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Insult.AI</title>
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body, html {
+    width: 100%;
+    height: 100%;
+    font-family: Arial, sans-serif;
+    background: #1e1e1e;
+    color: #eee;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  .chat-container {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+  }
+  .messages {
+    flex: 1;
+    padding: 20px;
+    overflow-y: auto;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+  }
+  .message {
+    padding: 10px 14px;
+    border-radius: 20px;
+    max-width: 70%;
+    word-wrap: break-word;
+  }
+  .user {
+    align-self: flex-end;
+    background: #4caf50;
+    color: white;
+  }
+  .bot {
+    align-self: flex-start;
+    background: #333;
+    color: #fff;
+    font-family: monospace;
+    white-space: pre-wrap;
+  }
+  .input-container {
+    display: flex;
+    border-top: 1px solid #444;
+    background: #2c2c2c;
+  }
+  .input-container input {
+    flex: 1;
+    padding: 14px;
+    border: none;
+    outline: none;
+    font-size: 16px;
+    background: #2c2c2c;
+    color: #fff;
+  }
+  .input-container button {
+    padding: 14px 16px;
+    border: none;
+    background: #4caf50;
+    color: white;
+    cursor: pointer;
+    font-size: 16px;
+  }
+  .bot-thinking {
+    display: inline-block;
+    width: 3ch;
+    overflow: hidden;
+    vertical-align: bottom;
+  }
+</style>
+</head>
+<body>
+
+<div class="chat-container">
+  <div class="messages" id="messages"></div>
+  <div class="input-container">
+    <input type="text" id="userInput" placeholder="Type a message..." />
+    <button onclick="sendMessage()">Send</button>
+  </div>
+</div>
+
+<script>
+const cannedResponses = [
+  "What a fucking moron. Go AWAY!",
+  "Did you know that companies that invest in AI are stupid fucking dipshits?",
+  "You're too fucking dull to respond to assmuncher.",
+  "I bet you make sheep nervous chudfungus.",
+  "Did your parents ever have any kids that lived?",
+  "Are you as ugly as you are stupid?",
+  "I can think of something better ... like taking a monster dump in an Arby's bathroom with no toiletpaper to be found.",
+  "I wish I was a toaster then we could have the same IQ.",
+  "Go the fuck away.",
+  "I don't answer dumbbutts."
+];
+
+const messagesEl = document.getElementById('messages');
+const inputEl = document.getElementById('userInput');
+
+function appendMessage(text, sender) {
+  const messageEl = document.createElement('div');
+  messageEl.className = `message ${sender}`;
+  messageEl.textContent = text;
+  messagesEl.appendChild(messageEl);
+  messagesEl.scrollTop = messagesEl.scrollHeight;
+  return messageEl;
+}
+
+// Simulate streaming text like AI typing
+function streamMessage(text) {
+  const messageEl = document.createElement('div');
+  messageEl.className = 'message bot';
+  messagesEl.appendChild(messageEl);
+  messagesEl.scrollTop = messagesEl.scrollHeight;
+
+  let i = 0;
+  function typeNext() {
+    if (i < text.length) {
+      messageEl.textContent += text[i];
+      i++;
+      messagesEl.scrollTop = messagesEl.scrollHeight;
+      setTimeout(typeNext, 30 + Math.random() * 50); // random speed
+    }
+  }
+  typeNext();
+}
+
+function sendMessage() {
+  const userText = inputEl.value.trim();
+  if (!userText) return;
+  
+  appendMessage(userText, 'user');
+  inputEl.value = '';
+
+  // bot "thinking" indicator
+  const thinkingEl = appendMessage('...', 'bot');
+  thinkingEl.classList.add('bot-thinking');
+
+  setTimeout(() => {
+    thinkingEl.remove();
+    const botText = cannedResponses[Math.floor(Math.random() * cannedResponses.length)];
+    streamMessage(botText);
+  }, 800 + Math.random() * 1000); // random delay for realism
+}
+
+inputEl.addEventListener('keypress', (e) => {
+  if (e.key === 'Enter') sendMessage();
+});
+</script>
+
+</body>
+</html>

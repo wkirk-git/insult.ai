@@ -4,7 +4,7 @@ William Kirk <william.kirk@example.com>
 
 == Overview
 
-This is a **full-screen, dark-themed chat interface** built entirely in **vanilla JavaScript** that mimics AI behavior using **canned responses**. It is designed to feel like a real AI chat because AI is bullshit :
+This is a **full-screen, dark-themed chat interface** built entirely in **vanilla JavaScript** that mimics AI (LLM Chatbot) behavior using **canned responses**. It is designed to feel like a real LLM AI chat because AI is bullshit :
 
 * Streaming text output character by character.
 * Animated “thinking” indicator while the bot prepares a response.

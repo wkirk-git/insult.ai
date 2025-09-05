@@ -70,11 +70,18 @@
     cursor: pointer;
     font-size: 16px;
   }
-  .bot-thinking {
+  .bot-thinking span {
     display: inline-block;
-    width: 3ch;
-    overflow: hidden;
-    vertical-align: bottom;
+    width: 8px;
+    text-align: center;
+    animation: blink 1s infinite;
+  }
+  .bot-thinking span:nth-child(2) { animation-delay: 0.2s; }
+  .bot-thinking span:nth-child(3) { animation-delay: 0.4s; }
+
+  @keyframes blink {
+    0%, 20% { opacity: 0; }
+    50%, 100% { opacity: 1; }
   }
 </style>
 </head>
@@ -89,7 +96,7 @@
 </div>
 
 <script>
-const cannedResponses = [
+let cannedResponses = [
   "What a fucking moron. Go AWAY!",
   "Did you know that companies that invest in AI are stupid fucking dipshits?",
   "You're too fucking dull to respond to assmuncher.",
@@ -107,6 +114,9 @@ const cannedResponses = [
   "I'd tell you to go touch grass, but I respect the grass too much.",
   "I don't answer dummy butts."
 ];
+ 
+
+let availableResponses = [...cannedResponses].sort(() => Math.random() - 0.5);
 
 const messagesEl = document.getElementById('messages');
 const inputEl = document.getElementById('userInput');
@@ -120,7 +130,7 @@ function appendMessage(text, sender) {
   return messageEl;
 }
 
-// Simulate streaming text like AI typing
+// Streaming bot message
 function streamMessage(text) {
   const messageEl = document.createElement('div');
   messageEl.className = 'message bot';
@@ -133,28 +143,41 @@ function streamMessage(text) {
       messageEl.textContent += text[i];
       i++;
       messagesEl.scrollTop = messagesEl.scrollHeight;
-      setTimeout(typeNext, 30 + Math.random() * 50); // random speed
+      setTimeout(typeNext, 30 + Math.random() * 50);
     }
   }
   typeNext();
 }
 
+// Create animated thinking element
+function createThinkingElement() {
+  const thinkingEl = document.createElement('div');
+  thinkingEl.className = 'message bot bot-thinking';
+  thinkingEl.innerHTML = `<span>.</span><span>.</span><span>.</span>`;
+  messagesEl.appendChild(thinkingEl);
+  messagesEl.scrollTop = messagesEl.scrollHeight;
+  return thinkingEl;
+}
+
 function sendMessage() {
   const userText = inputEl.value.trim();
   if (!userText) return;
-  
+
   appendMessage(userText, 'user');
   inputEl.value = '';
 
-  // bot "thinking" indicator
-  const thinkingEl = appendMessage('...', 'bot');
-  thinkingEl.classList.add('bot-thinking');
+  const thinkingEl = createThinkingElement();
 
   setTimeout(() => {
     thinkingEl.remove();
-    const botText = cannedResponses[Math.floor(Math.random() * cannedResponses.length)];
+
+    if (availableResponses.length === 0) {
+      availableResponses = [...cannedResponses].sort(() => Math.random() - 0.5);
+    }
+
+    const botText = availableResponses.shift();
     streamMessage(botText);
-  }, 800 + Math.random() * 1000); // random delay for realism
+  }, 800 + Math.random() * 1000);
 }
 
 inputEl.addEventListener('keypress', (e) => {
@@ -164,3 +187,4 @@ inputEl.addEventListener('keypress', (e) => {
 
 </body>
 </html>
+

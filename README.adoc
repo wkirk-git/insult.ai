@@ -62,5 +62,4 @@ You can also tweak:
 * Thinking delay: modify the delay in the `setTimeout` inside `sendMessage()`.
 * Styles: update colors, fonts, and layout in the `<style>` section.
 
-== Folder Structure
 

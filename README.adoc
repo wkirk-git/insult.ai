@@ -29,8 +29,8 @@ Simply clone or download the project folder. No dependencies are required.
 
 [source,bash]
 ----
-git clone https://github.com/yourusername/vanilla-js-chat-bot.git
-cd vanilla-js-chat-bot
+git clone https://github.com/wkirk-git/insult.ai.git
+cd insult.ai
 ----
 
 Open the `index.html` file in any modern web browser.

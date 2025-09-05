@@ -11,6 +11,8 @@ This is a **full-screen, dark-themed chat interface** built entirely in **vanill
 * Non-repeating responses until all options are used.
 * Fully responsive and lightweight—no libraries or frameworks required.
 
+https://wkirk-git.github.io/insult.ai/[Live Demo]
+
 == Features
 
 * Dark theme with full-screen layout.

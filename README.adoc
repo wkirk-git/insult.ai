@@ -1,0 +1,64 @@
+= Insult.AI
+William Kirk <william.kirk@example.com>
+2025-09-04
+
+== Overview
+
+This is a **full-screen, dark-themed chat interface** built entirely in **vanilla JavaScript** that mimics AI behavior using **canned responses**. It is designed to feel like a real AI chat because AI is bullshit :
+
+* Streaming text output character by character.
+* Animated “thinking” indicator while the bot prepares a response.
+* Non-repeating responses until all options are used.
+* Fully responsive and lightweight—no libraries or frameworks required.
+
+== Features
+
+* Dark theme with full-screen layout.
+* User messages appear on the right, bot messages on the left.
+* Bot simulates typing with a streaming effect.
+* Animated blinking dots for “thinking”.
+* Non-repeating canned responses for more realistic conversation.
+* Randomized delays to mimic AI response times.
+* Fully implemented in HTML, CSS, and vanilla JavaScript.
+
+== Installation
+
+Simply clone or download the project folder. No dependencies are required.
+
+[source,bash]
+----
+git clone https://github.com/yourusername/vanilla-js-chat-bot.git
+cd vanilla-js-chat-bot
+----
+
+Open the `index.html` file in any modern web browser.
+
+== Usage
+
+1. Open `index.html` in your browser.
+2. Type a message in the input box at the bottom.
+3. Press `Enter` or click the **Send** button.
+4. Watch the bot “think” and stream its response character by character.
+
+== Customization
+
+You can customize the bot responses by editing the `cannedResponses` array in `script`:
+
+[source,js]
+----
+let cannedResponses = [
+  "Some stupid bullshit here",
+  "You smell like the President's diaper.",
+  "Interesting, yawn ...",
+  "Want to know how to keep a moron in suspense? ............................"
+];
+----
+
+You can also tweak:
+
+* Typing speed: adjust `setTimeout` values in the `streamMessage` function.
+* Thinking delay: modify the delay in the `setTimeout` inside `sendMessage()`.
+* Styles: update colors, fonts, and layout in the `<style>` section.
+
+== Folder Structure
+
